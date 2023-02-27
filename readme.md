@@ -1,8 +1,33 @@
 # qscan
 
-## 端口扫描
+## 一、命令参数
+```bash
+||===================================||
+||     ____  _____ ____ ___  ____    ||
+||    / __ \/ ___/ ___/ __ \/ __ \   ||
+||   / /_/ (__  ) /__/ /_/ / / / /   ||
+||   \__, /____/\___/\__,_/_/ /_/    ||
+||     /_/                           ||
+||===================================||
+||      mult process scan tools      ||
+||===================================||
+Usage: qscan [OPTIONS] <COMMAND>
 
-### tcp 扫描
+Commands:
+  udp, -u  Use UDP method for scan port.
+  tcp, -t  Use TCP method for scan port.
+  help     Print this message or the help of the given subcommand(s)
+
+Options:
+  -p, --port-range <port>  Port rang: <start port>-<end port>
+                           Example: scan -p 0-100 udp 127.0.0.1
+                           If not set range, then default scan all port. [default: 0-65535]
+  -h, --help               Print help
+  -V, --version            Print version
+```
+
+## 二、端口扫描
+### 2.1 TCP SYN 扫描
 ```bash
 stack@stackdeMacBook-Pro qscan % sudo cargo run -- -p 0-65535 -t -s 127.0.0.1 
    Compiling qscan v0.1.0 (/Users/stack/Project/rust/qscan)
@@ -43,7 +68,7 @@ stack@stackdeMacBook-Pro qscan % sudo cargo run -- -p 0-65535 -t -s 127.0.0.1
 TCP SYN 扫描，花费时间共计: 1.740997958s
 ```
 
-### udp 扫描
+### 2.2 UDP 扫描
 ```bash
 stack@stackdeMacBook-Pro qscan % sudo cargo run -- -p 0-65535 -u 127.0.0.1  
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
@@ -67,7 +92,7 @@ stack@stackdeMacBook-Pro qscan % sudo cargo run -- -p 0-65535 -u 127.0.0.1
 UDP 扫描，花费时间共计: 3.921859792s
 ```
 
-### 为什么 rust 端口扫描的结果与 nmap 不一致
+## 三、为什么 rust 端口扫描的结果与 nmap 不一致
 端口扫描工具在扫描时会使用不同的扫描技术和算法，以及使用不同的默认超时时间、扫描方式等，因此在扫描结果上会有一定的差异。下面是一些可能导致 Rust 端口扫描结果与 Nmap 不一致的原因：
 - 超时时间不同：默认情况下，Rust 的 UdpSocket 接收超时时间为 500 毫秒，而 Nmap 默认情况下使用的超时时间为 2 秒。如果 UDP 端口在超时时间内未响应，则 Rust 端口扫描会认为该端口关闭，而 Nmap 则可能会认为该端口为开放状态。
 - 扫描技术不同：Rust 端口扫描使用的是 UDP 发送数据包的方式进行扫描，而 Nmap 可以使用多种扫描技术，如 SYN 扫描、FIN 扫描、NULL 扫描等。这些技术在扫描时会产生不同的包，导致扫描结果有差异。

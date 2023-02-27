@@ -4,8 +4,6 @@ version = "0.1.0"
 edition = "2021"
 authors = ["artisancode@163.com"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 # 命令行参数解析包
 clap = { version = "4.1.6", features = ["derive"] }
@@ -22,3 +20,17 @@ colorful = "0.2.2"
 num_cpus = "1.15.0" # 用于确定当前系统上可用的 CPU 数量
 chrono = "0.4.23"
 prettytable = "0.10.0" # 用于终端打印图表
+
+[profile.release]
+debug = false
+opt-level = 'z' # 调整优化等级
+lto = true # 开启 LTO
+codegen-units = 1 # 调整并行代码生成单元数量
+panic = 'abort' # Panic 时立刻终止
+strip = true # 裁剪
+# 编译命令：cargo build --release 
+# 裁剪命令：strip  target/release/remote_access_tools
+# 绘制依赖图：cargo deps | dot -Tpng > graph.png ，在 mac 上需要安装：brew install graphviz 和 cargo install cargo-deps
+# 查看各个 crate 所占体积: cargo bloat --release --crates，需要安装：cargo install cargo-bloat
+# upx: upx -9 target/release/remote_access_tools ，mac 安装：brew install --build-from-source upx
+# aarch64-apple-darwin
