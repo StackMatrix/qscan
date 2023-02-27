@@ -1,0 +1,24 @@
+[package]
+name = "qscan"
+version = "0.1.0"
+edition = "2021"
+authors = ["artisancode@163.com"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# 命令行参数解析包
+clap = { version = "4.1.6", features = ["derive"] }
+
+# 正则表达式
+regex = "1.7.1"
+
+# ip 地址
+ipaddress = "0.1.2"
+
+# 颜色渲染
+colorful = "0.2.2"
+
+num_cpus = "1.15.0" # 用于确定当前系统上可用的 CPU 数量
+chrono = "0.4.23"
+prettytable = "0.10.0" # 用于终端打印图表
