@@ -3,6 +3,7 @@
 ## 端口扫描
 
 ### tcp 扫描
+```bash
 stack@stackdeMacBook-Pro qscan % sudo cargo run -- -p 0-65535 -t -s 127.0.0.1 
    Compiling qscan v0.1.0 (/Users/stack/Project/rust/qscan)
     Finished dev [unoptimized + debuginfo] target(s) in 1.09s
@@ -40,8 +41,10 @@ stack@stackdeMacBook-Pro qscan % sudo cargo run -- -p 0-65535 -t -s 127.0.0.1
 | 55786 | open   | unknown |
 +-------+--------+---------+
 TCP SYN 扫描，花费时间共计: 1.740997958s
+```
 
 ### udp 扫描
+```bash
 stack@stackdeMacBook-Pro qscan % sudo cargo run -- -p 0-65535 -u 127.0.0.1  
     Finished dev [unoptimized + debuginfo] target(s) in 0.17s
      Running `target/debug/qscan -p 0-65535 -u 127.0.0.1`
@@ -62,7 +65,7 @@ stack@stackdeMacBook-Pro qscan % sudo cargo run -- -p 0-65535 -u 127.0.0.1
 | 64130 | open     | unknown |
 +-------+----------+---------+
 UDP 扫描，花费时间共计: 3.921859792s
-
+```
 
 ### 为什么 rust 端口扫描的结果与 nmap 不一致
 端口扫描工具在扫描时会使用不同的扫描技术和算法，以及使用不同的默认超时时间、扫描方式等，因此在扫描结果上会有一定的差异。下面是一些可能导致 Rust 端口扫描结果与 Nmap 不一致的原因：
